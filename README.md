@@ -1,4 +1,4 @@
-# Mais Type e 75 LAB · Do papel à prateleira
+# Deck 75 LAB para a Mais Type
 
 Apresentação da 75 LAB publicada em https://projetos.75lab.com.br/mais-type-75lab/
 
