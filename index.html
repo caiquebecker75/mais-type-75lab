@@ -8,313 +8,452 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F4F3EC;--ink:#0B0B0B;--lime:#C0EE4E;--mute:#55554D;--line:#d8d6c8;--card:#fff}
+:root{--bg:#F4F3EC;--ink:#0B0B0B;--lime:#C0EE4E;--mute:#55554D;--line:#d8d6c8;--card:#fff;--foto:#e8eaea}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;overflow:hidden}
 h1,h2,.k{font-family:'Big Shoulders Display',sans-serif;font-weight:900;letter-spacing:-.01em;line-height:.95;text-transform:uppercase}
+button{font-family:inherit;color:inherit}
 #palco{position:fixed;left:50%;top:50%;width:1600px;height:900px;transform-origin:center center}
-.slide{position:absolute;inset:0;padding:120px 110px 90px;opacity:0;pointer-events:none;transform:translateX(60px);transition:opacity .55s ease,transform .55s ease}
+.slide{position:absolute;inset:0;padding:120px 110px 90px;opacity:0;pointer-events:none;transform:translateX(60px) scale(.985);transition:opacity .55s ease,transform .55s ease;overflow:hidden}
 .slide.on{opacity:1;pointer-events:auto;transform:none}
-.slide.saiu{transform:translateX(-60px)}
+.slide.saiu{transform:translateX(-60px) scale(.985)}
+.grao{position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:multiply;z-index:1;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+.orbe{position:absolute;border-radius:50%;background:var(--lime);opacity:.35;filter:blur(2px);animation:flutua 9s ease-in-out infinite;pointer-events:none}
+@keyframes flutua{50%{transform:translate(24px,-30px)}}
 .topo{position:fixed;left:0;top:0;width:100%;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:22px 40px;pointer-events:none}
 .topo img{height:46px;width:auto}
+.topo .marca{display:flex;align-items:center;gap:12px}
 .topo .mt{font-family:'Big Shoulders Display';font-weight:900;font-size:30px;letter-spacing:.04em;text-transform:uppercase}
+.topo .mtl{height:38px;border-radius:6px}
 .topo .x{font-size:22px;color:var(--mute);margin:0 14px}
-.marca{display:flex;align-items:center}
+.topo .l75{display:flex;align-items:center}
+.topo .lm{display:none}
+.topo.esc .lp{display:none}.topo.esc .lm{display:block}.topo.esc .mt{color:#fff}.topo.esc .mtl{background:#fff;padding:4px 8px}
 h1{font-size:150px}
-h2{font-size:84px;max-width:1200px}
-.apoio{font-size:28px;line-height:1.35;max-width:820px;color:#222;margin-top:26px}
-.fonte{position:absolute;left:110px;bottom:34px;font-size:12px;color:#6a6a62}
-.tag{display:inline-block;background:var(--lime);padding:6px 14px;font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px}
-/* capa */
-.capa{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
-.capa .arte{background:var(--ink);height:640px;position:relative;overflow:hidden}
-.capa .arte svg{width:100%;height:100%}
+h2{font-size:78px;max-width:1250px}
+.apoio{font-size:28px;line-height:1.35;max-width:820px;color:#222;margin-top:22px;position:relative;z-index:2}
+.fonte{position:absolute;left:110px;bottom:34px;font-size:12px;color:#6a6a62;z-index:3}
+.tag{display:inline-block;background:var(--lime);padding:6px 14px;font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:2}
+.foto{background:var(--foto);overflow:hidden;position:relative}
+.foto img{width:100%;height:100%;object-fit:cover;display:block}
+[data-amplia]{cursor:zoom-in}
+/* anima entrada */
+.on .anima{animation:entra .7s both}
+.on .d1{animation-delay:.12s}.on .d2{animation-delay:.24s}.on .d3{animation-delay:.36s}.on .d4{animation-delay:.48s}
+@keyframes entra{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 .draw{stroke-dasharray:1200;stroke-dashoffset:1200}
 .on .draw{animation:desenha 2.2s .3s forwards ease}
 @keyframes desenha{to{stroke-dashoffset:0}}
-.pulso{transform-box:fill-box;transform-origin:center;animation:pulso 2.4s infinite ease-in-out}
-@keyframes pulso{50%{transform:scale(1.18)}}
-/* números */
-.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:40px}
-.nums div{border-top:6px solid var(--ink);padding-top:14px}
+/* 1 capa */
+.capa{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.capa h1 em{font-style:normal;background:var(--lime);padding:0 12px}
+.mosaico{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:640px;position:relative;z-index:2}
+.mosaico .foto:nth-child(1){grid-row:span 2}.mosaico{grid-template-rows:1fr;}.mosaico .foto{grid-row:span 1}.mosaico .foto:nth-child(1){grid-row:auto}
+.mosaico .foto img{animation:kb 14s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.09)}}
+.cadeia{display:flex;gap:10px;margin-top:34px;position:relative;z-index:2}
+.cadeia span{border:2px solid var(--ink);padding:8px 16px;font-weight:700;letter-spacing:.08em;font-size:17px}
+.cadeia span:nth-child(2){background:var(--ink);color:var(--lime)}
+/* 2 75lab */
+.l2 h2{font-size:70px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:30px;position:relative;z-index:2}
+.nums div{border-top:6px solid var(--ink);padding-top:10px}
 .num{font-family:'Big Shoulders Display';font-weight:900;font-size:150px;line-height:.9}
-.nums p{font-size:24px;margin-top:8px}
-.marcas{display:flex;flex-wrap:wrap;gap:12px 14px;margin-top:34px;max-width:1300px}
-.marcas span{border:2px solid var(--ink);padding:8px 16px;font-size:20px;font-weight:500;border-radius:40px}
-/* linha do tempo */
-.trilha{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:70px;position:relative}
+.nums p{font-size:24px;margin-top:6px}
+.faixa{position:absolute;left:0;right:0;bottom:0;height:200px;background:var(--ink);display:flex;align-items:flex-start;gap:30px;padding:48px 110px 0;z-index:2}
+.faixa .lg{height:46px;width:auto;filter:brightness(0) invert(1);opacity:.9;max-width:150px;object-fit:contain}
+.faixa .nm{color:#fff;font-family:'Big Shoulders Display';font-weight:800;font-size:30px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.faixa .nm:nth-child(odd){color:var(--lime)}
+/* 3 jornada */
+.jorn{display:block;margin-left:330px}.jorn h2{font-size:64px}
+.trilha{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:50px;position:relative}
 .trilha:before{content:"";position:absolute;left:5%;right:5%;top:46px;height:4px;background:var(--ink);transform-origin:left;transform:scaleX(0)}
 .on .trilha:before{animation:cresce 1.6s .3s forwards ease}
 @keyframes cresce{to{transform:scaleX(1)}}
-.passo{text-align:center;position:relative}
-.passo .ic{width:94px;height:94px;border-radius:50%;background:var(--lime);margin:0 auto 16px;display:grid;place-items:center;border:4px solid var(--ink)}
+.passo{text-align:center;position:relative;background:none;border:0;cursor:pointer;padding:0}
+.passo .ic{width:94px;height:94px;border-radius:50%;background:#fff;margin:0 auto 14px;display:grid;place-items:center;border:4px solid var(--ink);transition:background .25s,transform .25s}
+.passo.on2 .ic{background:var(--lime);transform:scale(1.1)}
 .passo svg{width:46px;height:46px;stroke:var(--ink);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.passo b{display:block;font-size:26px}
-.passo span{font-size:18px;color:var(--mute);display:block;margin-top:6px}
-.nota{margin-top:50px;font-size:26px;background:var(--ink);color:#fff;display:inline-block;padding:16px 26px}
-.nota em{font-style:normal;background:var(--lime);color:var(--ink);padding:0 8px}
-/* fluxo ariuno */
-.fluxo{display:flex;align-items:center;gap:10px;margin-top:50px}
-.fluxo .no{flex:1;background:var(--card);border:3px solid var(--ink);padding:20px 18px;min-height:150px}
-.fluxo .no b{font-size:26px;display:block;margin-bottom:8px}
-.fluxo .no span{font-size:19px;color:#333;line-height:1.3}
-.fluxo .seta{width:46px;flex:none}
-.fluxo .seta path{stroke:var(--ink);stroke-width:4;fill:none;stroke-dasharray:60;stroke-dashoffset:60}
-.on .fluxo .seta path{animation:desenha60 .8s .6s forwards}
-@keyframes desenha60{to{stroke-dashoffset:0}}
-.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:34px}
-.tres div{border-left:6px solid var(--lime);padding-left:18px;font-size:22px;line-height:1.3}
-.tres b{display:block;font-size:26px;margin-bottom:4px}
-/* qr */
-.qrgrid{display:grid;grid-template-columns:1.4fr .6fr;gap:50px;align-items:center}
-.etapas{display:grid;gap:12px;margin-top:30px}
-.etapa{display:grid;grid-template-columns:70px 1fr;gap:18px;align-items:center;background:var(--card);border-left:8px solid var(--ink);padding:12px 18px}
-.etapa i{font-style:normal;font-family:'Big Shoulders Display';font-weight:900;font-size:52px}
-.etapa p{font-size:20px;line-height:1.3}
-.etapa b{font-size:22px}.etapa u{text-decoration:none;font-weight:700;background:var(--lime);padding:0 5px}
-.qrbox{background:#fff;border:4px solid var(--ink);padding:22px;text-align:center}
+.passo b{display:block;font-size:24px}
+.painel{margin-top:40px;background:var(--ink);color:#fff;padding:22px 28px;font-size:25px;line-height:1.35;min-height:130px;position:relative;z-index:2}
+.painel [data-p]{display:none}.painel [data-p].on2{display:block}
+.painel em{font-style:normal;background:var(--lime);color:var(--ink);padding:0 8px}
+.pilha{position:absolute;left:0;top:0;bottom:0;width:400px;z-index:2}.pilha .foto{height:100%}
+/* 4 ariuno */
+.s4{display:grid;grid-template-columns:1.1fr .9fr;gap:0;padding:0}.s4 .esq{order:2}
+.s4 .esq{background:var(--foto);position:relative}
+.s4 .esq img{width:100%;height:100%;object-fit:contain;padding:140px 60px 70px}
+.s4 .dir{padding:120px 100px 90px 70px;background:var(--lime);position:relative}
+.s4 h2{font-size:70px}
+.abas{display:flex;gap:10px;margin-top:34px;position:relative;z-index:2}
+.abas button{flex:1;border:3px solid var(--ink);background:#fff;padding:14px 8px;font-size:22px;font-weight:700;cursor:pointer;text-align:center}
+.abas button.on2{background:var(--ink);color:var(--lime)}
+.cx{background:#fff;border:3px solid var(--ink);padding:22px 26px;margin-top:16px;min-height:180px;position:relative;z-index:2}
+.cx [data-p]{display:none;font-size:25px;line-height:1.35}.cx [data-p].on2{display:block}
+.cx b{font-size:30px;display:block;margin-bottom:6px;font-family:'Big Shoulders Display';text-transform:uppercase}
+.tres{display:flex;gap:26px;margin-top:20px;font-size:20px;font-weight:700;position:relative;z-index:2}
+.tres span:before{content:"";display:inline-block;width:14px;height:14px;background:var(--ink);margin-right:8px}
+.s4 .fonte{left:70px}
+/* 5 qr */
+.qrg{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:stretch}.qrg .peca{transform:rotate(-1.5deg)}
+.peca{position:relative;height:620px}
+.peca .foto{height:100%}
+.peca .foto img{object-fit:contain;padding:10px}
+.pt{position:absolute;width:56px;height:56px;border-radius:50%;background:var(--lime);border:4px solid var(--ink);font-weight:700;font-size:24px;cursor:pointer;display:grid;place-items:center;z-index:3;animation:pulso 2.4s infinite ease-in-out}
+.pt.on2{background:var(--ink);color:var(--lime)}
+@keyframes pulso{50%{box-shadow:0 0 0 14px rgba(192,238,78,.35)}}
+.lado5{display:flex;flex-direction:column;gap:14px;position:relative;z-index:2}
+.lado5 .cx{min-height:230px;margin-top:0}
+.qrbox{background:#fff;border:4px solid var(--ink);padding:14px;display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
 .qrbox svg{width:100%;height:auto;display:block}
-.qrbox p{font-size:20px;margin-top:12px;font-weight:700}
-/* grade */
-.grade{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
-.card{background:var(--card);border:3px solid var(--ink);padding:20px;min-height:200px}
-.card:nth-child(3n+1){background:var(--lime)}
-.card svg{width:40px;height:40px;stroke:var(--ink);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;margin-bottom:10px}
-.card b{display:block;font-size:24px;line-height:1.1;margin-bottom:6px}
-.card span{font-size:18px;line-height:1.3}
-/* caminhos */
-.cam{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:40px;border:3px solid var(--ink)}
-.cam>div{padding:30px 28px;border-right:3px solid var(--ink);min-height:360px}
-.cam>div:last-child{border-right:0}
-.cam>div:nth-child(2){background:var(--ink);color:#fff}
-.cam .n{font-family:'Big Shoulders Display';font-weight:900;font-size:110px;line-height:.9}
-.cam b{font-size:34px;display:block;margin:6px 0 12px;font-family:'Big Shoulders Display';text-transform:uppercase}
-.cam p{font-size:21px;line-height:1.35}
-.cam small{display:inline-block;margin-top:14px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;background:var(--lime);color:var(--ink);padding:4px 10px;font-weight:700}
-/* fim */
+.qrbox p{font-size:20px;font-weight:700;line-height:1.25}
+.fluxo5{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.fluxo5 i{font-style:normal;border:2px solid var(--ink);padding:6px 10px}
+.fluxo5 svg{width:26px;flex:none}
+.fluxo5 path{stroke:var(--ink);stroke-width:3;fill:none;stroke-dasharray:40;stroke-dashoffset:40}
+.on .fluxo5 path{animation:desenha60 .8s .6s forwards}
+@keyframes desenha60{to{stroke-dashoffset:0}}
+/* 6 oferta */
+.s6{background:var(--lime)}
+.of{display:grid;grid-template-columns:1fr 420px;gap:50px}
+.lista{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;margin-top:30px;position:relative;z-index:2}
+.it{display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:center;border-bottom:3px solid var(--ink);padding:8px 0;transition:opacity .25s}
+.it svg{width:44px;height:44px;stroke:var(--ink);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.it b{display:block;font-size:26px;line-height:1.05}
+.it span{font-size:18px;color:#222}
+.chips{display:flex;gap:10px;margin-top:24px;position:relative;z-index:2}
+.chips button{border:3px solid var(--ink);background:#fff;padding:10px 20px;font-size:20px;font-weight:700;cursor:pointer}
+.chips button.on2{background:var(--ink);color:var(--lime)}
+.of.f-prod .it:not(.p),.of.f-med .it:not(.m),.of.f-ven .it:not(.v){opacity:.22}
+.of .foto{height:640px;align-self:start;transform:rotate(2deg);box-shadow:14px 14px 0 var(--ink);position:relative;z-index:2}
+.of .foto img{object-fit:contain;padding:12px}
+/* 7 caminhos */
+.cm{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:center}
+.cm .foto{height:620px;position:relative;z-index:2}
+.cm .foto img{position:absolute;inset:0;object-fit:contain;padding:14px;opacity:0;transition:opacity .4s}
+.cm .foto img.on2{opacity:1}
+.seg{display:grid;gap:14px;position:relative;z-index:2}
+.seg button{display:grid;grid-template-columns:100px 1fr;gap:18px;text-align:left;border:3px solid var(--ink);background:#fff;padding:18px 24px;cursor:pointer;align-items:center;transition:background .25s,color .25s}
+.seg button.on2{background:var(--ink);color:#fff}
+.seg .n{font-family:'Big Shoulders Display';font-weight:900;font-size:90px;line-height:.9}
+.seg.on2 .n{color:var(--lime)}
+.seg button.on2 .n{color:var(--lime)}
+.seg b{font-family:'Big Shoulders Display';font-size:38px;text-transform:uppercase;display:block;line-height:1}
+.seg p{font-size:21px;line-height:1.3;margin-top:6px}
+.seg small{display:inline-block;margin-top:8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;background:var(--lime);color:var(--ink);padding:3px 10px;font-weight:700}
+/* 8 fim */
 .fim{background:var(--ink);color:#fff}
-.fim .lado{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start}
-.fim h2{color:#fff;font-size:88px}
+.fim .lado{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start;position:relative;z-index:2}
+.fim h2{color:#fff;font-size:84px}
 .fim h2 em{font-style:normal;color:var(--lime)}
 .fim .dados{font-size:19px;line-height:1.55;color:#e8e8e0}
 .fim .dados b{color:var(--lime);font-weight:700}
-.btn{display:inline-block;margin-top:34px;background:var(--lime);color:var(--ink);font-weight:700;font-size:28px;padding:20px 34px;text-decoration:none;border:3px solid var(--lime);min-height:44px}
+.fim .fotos{display:flex;gap:12px;margin-top:26px}
+.fim .fotos .foto{width:300px;height:190px}
+.fim .grao{mix-blend-mode:screen;opacity:.05}
+.btn{display:inline-block;margin-top:30px;background:var(--lime);color:var(--ink);font-weight:700;font-size:28px;padding:20px 34px;text-decoration:none;border:3px solid var(--lime);min-height:44px}
 .btn:hover{background:#fff;border-color:#fff}
+.fim .fonte{color:#aaa}
 /* ui */
 .barra{position:fixed;left:0;bottom:0;height:5px;background:var(--lime);width:0;z-index:30;transition:width .5s}
 .cont{position:fixed;right:34px;bottom:18px;font-size:15px;font-weight:700;z-index:30;mix-blend-mode:difference;color:#fff}
 .nav{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:30}
-.nav button{width:48px;height:48px;border:3px solid var(--ink);background:var(--lime);font-size:22px;font-weight:700;cursor:pointer;font-family:inherit}
+.nav button{width:48px;height:48px;border:3px solid var(--ink);background:var(--lime);font-size:22px;font-weight:700;cursor:pointer}
 .nav button.ro{width:auto;padding:0 14px;font-size:15px;background:#fff}
-
+.roteiro{display:none}
 .roteiro[hidden]{display:none!important}
 body.mostra .roteiro.vivo{display:block;position:fixed;left:0;right:0;bottom:70px;max-height:34vh;overflow:auto;background:var(--ink);color:#fff;padding:20px 40px;font-size:18px;line-height:1.5;z-index:40}
-.cur{position:fixed;width:18px;height:18px;border-radius:50%;background:var(--lime);border:2px solid var(--ink);pointer-events:none;z-index:99;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+.cur{position:fixed;width:18px;height:18px;border-radius:50%;background:var(--lime);border:2px solid var(--ink);pointer-events:none;z-index:99;transform:translate(-50%,-50%);transition:width .2s,height .2s;display:grid;place-items:center;font-size:10px;font-weight:700;letter-spacing:.06em}
 .cur.g{width:44px;height:44px}
+.cur.z{width:84px;height:84px}
+.cur.z:after{content:"EXPANDIR"}
+.cur.p{width:64px;height:64px}
+.cur.p:after{content:"VER"}
 @media (pointer:coarse){.cur{display:none}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.draw{stroke-dashoffset:0}.trilha:before{transform:none}.fluxo .seta path{stroke-dashoffset:0}}
+.lb{position:fixed;inset:0;background:rgba(11,11,11,.88);z-index:200;display:none;align-items:center;justify-content:center;padding:4vh 4vw;cursor:zoom-out}
+.lb.on{display:flex;animation:entra .3s both}
+.lb img{max-width:100%;max-height:92vh;object-fit:contain;background:var(--foto)}
+.lb button{position:absolute;top:18px;right:22px;width:48px;height:48px;border:3px solid var(--ink);background:var(--lime);font-size:24px;font-weight:700;cursor:pointer}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.draw{stroke-dashoffset:0}.trilha:before{transform:none}.fluxo5 path{stroke-dashoffset:0}}
 /* celular e tablet */
 @media (max-width:899px){
  html,body{overflow:auto;height:auto}
  #palco{position:static;width:100%;height:auto;transform:none!important}
- .slide{position:relative;inset:auto;opacity:1;transform:none;pointer-events:auto;padding:90px 22px 56px;min-height:0;border-bottom:6px solid var(--ink)}
+ .slide{position:relative;inset:auto;opacity:1;transform:none;pointer-events:auto;padding:96px 22px 48px;min-height:0;border-bottom:6px solid var(--ink)}
  .topo{position:absolute;padding:16px 22px}
- .topo img{height:34px}.topo .mt{font-size:22px}
- h1{font-size:60px}h2{font-size:40px}
- .apoio{font-size:19px}
- .capa,.qrgrid,.fim .lado{grid-template-columns:1fr}
- .capa .arte{height:300px}
- .nums,.tres,.cam{grid-template-columns:1fr}
+ .topo img{height:32px}.topo .mt{font-size:22px}.topo .mtl{height:28px}
+ h1{font-size:62px}h2{font-size:36px}
+ .apoio{font-size:18px}
+ .capa,.qrg,.fim .lado,.jorn,.of,.cm,.s4{grid-template-columns:1fr}
+ .mosaico{height:360px}
+ .nums{grid-template-columns:1fr;gap:18px}
  .num{font-size:96px}
- .trilha{grid-template-columns:1fr 1fr;margin-top:30px}.trilha:before{display:none}
- .fluxo{flex-direction:column;align-items:stretch}
- .fluxo .seta{transform:rotate(90deg);margin:0 auto;height:30px}
- .grade{grid-template-columns:1fr 1fr}
- .cam>div{border-right:0;border-bottom:3px solid var(--ink);min-height:0}
- .fonte{position:static;margin-top:24px;font-size:12px}
+ .faixa{position:static;height:auto;flex-wrap:wrap;gap:16px 22px;padding:22px;margin:26px -22px -48px;width:calc(100% + 44px)}
+ .faixa .nm{font-size:24px}
+ .trilha{grid-template-columns:1fr 1fr;margin-top:26px}.trilha:before{display:none}
+ .passo b{font-size:20px}
+ .painel{font-size:18px}
+ .jorn{margin-left:0}.jorn h2{font-size:36px}.pilha{position:static;width:auto;margin-bottom:22px}.pilha .foto{height:240px}
+ .s4{display:block;padding:0}
+ .s4 .esq{height:280px}.s4 .esq img{padding:90px 20px 20px}
+ .s4 .dir{padding:30px 22px 48px}
+ .abas{flex-wrap:wrap}.abas button{flex:1 1 45%;font-size:18px}
+ .cx [data-p]{font-size:18px}
+ .tres{flex-direction:column;gap:6px;font-size:18px}
+ .peca{height:360px}.qrg .peca{transform:none}
+ .qrbox{grid-template-columns:110px 1fr}.qrbox p{font-size:16px}
+ .fluxo5{flex-wrap:wrap;font-size:16px}
+ .lista{grid-template-columns:1fr}.it b{font-size:22px}.it span{font-size:16px}
+ .of .foto{height:340px;transform:none;box-shadow:6px 6px 0 var(--ink)}
+ .chips{flex-wrap:wrap}.chips button{font-size:16px;padding:10px 14px}
+ .cm .foto{height:340px}
+ .seg button{grid-template-columns:56px 1fr;padding:14px}.seg .n{font-size:52px}.seg b{font-size:28px}.seg p{font-size:16px}
+ .fonte{position:static;margin-top:22px;font-size:12px}
  .nav,.cont,.barra{display:none}
  .btn{font-size:20px;width:100%;text-align:center}
- .fim h2{font-size:44px}
- .roteiro{display:none!important}
+ .fim h2{font-size:40px}
+ .fim .fotos .foto{width:100%;height:170px}
+ .roteiro,body.mostra .roteiro.vivo{display:none!important}
+ .orbe{display:none}
 }
 </style>
 </head>
 <body>
-<div class="topo"><div class="marca"><img src="assets/01-oficina-1792670671052-logo-75lab-preto.png" alt="Logo 75 LAB"><span class="x">×</span><span class="mt">Mais Type</span></div></div>
+<div class="topo" id="topo">
+ <div class="l75"><img class="lp" src="assets/01-oficina-1792670671052-logo-75lab-preto.png" alt="Logo 75 LAB"><img class="lm" src="assets/02-oficina-1792670671952-logo-75lab-lime.png" alt="Logo 75 LAB"></div>
+ <div class="marca"><img class="mtl" src="assets/03-oficina-1792676021724-f1.png" alt="Logo Mais Type"><span class="mt">Mais Type</span></div>
+</div>
 <div id="palco">
 
-<section class="slide on capa" data-tela="capa">
- <div>
-  <span class="tag">23/10/2026 · Mais Type × 75 LAB</span>
-  <h1>Do papel à prateleira</h1>
-  <p class="apoio">O que a Mais Type imprime e o que a 75 LAB mede no ponto de venda podem formar uma coisa só.</p>
+<!-- 1 CAPA -->
+<section class="slide on" data-tela="capa">
+ <div class="grao"></div><div class="orbe" style="width:260px;height:260px;left:-60px;bottom:-40px"></div>
+ <div class="capa">
+  <div>
+   <span class="tag anima">23/10/2026 · Mais Type × 75 LAB</span>
+   <h1 class="anima d1">Do papel à <em>prateleira</em></h1>
+   <p class="apoio anima d2">O que a Mais Type imprime e o que a 75 LAB mede no ponto de venda podem formar uma coisa só.</p>
+   <div class="cadeia anima d3"><span>IMPRESSO</span><span>QR CODE</span><span>PDV MEDIDO</span></div>
+  </div>
+  <div class="mosaico anima d2">
+   <div class="foto" data-amplia="assets/04-oficina-1792676027730-f8.jpg"><img src="assets/04-oficina-1792676027730-f8.jpg" alt="Catálogo de beleza impresso pela Mais Type"></div>
+   <div class="foto" data-amplia="assets/05-oficina-1792676023733-f4.jpg"><img src="assets/05-oficina-1792676023733-f4.jpg" alt="Catálogo de moda impresso pela Mais Type"></div>
+  </div>
  </div>
- <div class="arte" aria-hidden="true">
-  <svg viewBox="0 0 480 640" fill="none">
-   <g stroke="#C0EE4E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="70" y="70" width="120" height="160" rx="6" class="draw"/>
-    <path d="M95 110h70M95 140h70M95 170h46" class="draw"/>
-    <path d="M190 150 C260 150 260 320 330 320" class="draw"/>
-    <rect x="300" y="290" width="100" height="100" rx="6" class="draw"/>
-    <path d="M320 310h24v24h-24zM356 310h24M356 334h24M320 346h24M356 358h24v20h-24z" class="draw"/>
-    <path d="M350 390 C350 470 250 470 250 520" class="draw"/>
-   </g>
-   <g class="pulso"><circle cx="250" cy="560" r="22" fill="#C0EE4E"/></g>
-   <circle cx="250" cy="560" r="44" stroke="#C0EE4E" stroke-width="3" opacity=".5"/>
-   <text x="70" y="270" fill="#fff" font-family="Space Grotesk" font-size="22" font-weight="700">IMPRESSO</text>
-   <text x="300" y="430" fill="#fff" font-family="Space Grotesk" font-size="22" font-weight="700">QR CODE</text>
-   <text x="290" y="566" fill="#fff" font-family="Space Grotesk" font-size="22" font-weight="700">PDV MEDIDO</text>
-  </svg>
- </div>
+ <p class="fonte">Fonte: maistype.com.br, consultado em 22/10/2026 (fotos do portfólio).</p>
  <aside class="roteiro" hidden>Bom dia, Arnaldo, obrigado por nos receber. A ideia desta conversa é simples: conhecer a Mais Type de perto e mostrar como a 75 LAB trabalha. Vocês dominam o papel, o acabamento e a agilidade. A gente vive o ponto de venda: o que a marca precisa para ser vista e vendida na prateleira. Hoje quero mostrar quem somos, como organizamos o trabalho no Ariuno, como um QR Code transforma uma peça impressa em dado, e abrir três caminhos possíveis entre as duas casas. Combinado?</aside>
 </section>
 
-<section class="slide" data-tela="75lab">
- <span class="tag">Quem somos</span>
- <h2>A 75 LAB vive o trade dos dois lados do balcão</h2>
- <p class="apoio">Caique veio do varejo, Daniel veio da indústria. Estratégia que precisa virar venda na ponta.</p>
- <div class="nums">
-  <div><div class="num" data-conta="15" data-suf="+">0</div><p>anos de trade marketing</p></div>
-  <div><div class="num" data-conta="15000" data-suf="+">0</div><p>pontos de venda ativados</p></div>
-  <div><div class="num" data-conta="95" data-suf="%">0</div><p>de projetos aprovados</p></div>
+<!-- 2 75 LAB -->
+<section class="slide l2" data-tela="75lab">
+ <div class="grao"></div>
+ <span class="tag anima">Quem somos</span>
+ <h2 class="anima d1">A 75 LAB vive os dois lados do balcão</h2>
+ <p class="apoio anima d2">Caique veio do varejo, Daniel veio da indústria. Estratégia que precisa virar venda na ponta.</p>
+ <div class="nums anima d3">
+  <div><div class="num">+<span data-conta="15">0</span></div><p>anos de trade marketing</p></div>
+  <div><div class="num">+<span data-conta="15000">0</span></div><p>pontos de venda ativados</p></div>
+  <div><div class="num"><span data-conta="95">0</span>%</div><p>de projetos aprovados</p></div>
  </div>
- <div class="marcas"><span>Alltak</span><span>Lactalis</span><span>Seara</span><span>Nestlé Purina</span><span>Panco</span><span>Savencia</span><span>SEMP</span><span>Panasonic</span><span>Scala</span><span>Cacau Show</span></div>
- <p class="fonte">Fonte: 75lab.com.br, consultado em 22/10/2026. Marcas atendidas em 2025 e 2026.</p>
+ <div class="faixa">
+  <img class="lg" src="assets/06-oficina-1792676362736-logo-mars.png" alt="Logo Mars">
+  <img class="lg" src="assets/07-oficina-1792676363771-logo-petz.png" alt="Logo Petz">
+  <img class="lg" src="assets/08-oficina-1792676364698-coop-s.png" alt="Logo Coop">
+  <span class="nm">Savencia</span><span class="nm">Alltak</span><span class="nm">Lactalis</span><span class="nm">Seara</span><span class="nm">Nestlé Purina</span><span class="nm">Panco</span><span class="nm">Cacau Show</span>
+ </div>
+ <p class="fonte" style="bottom:30px;color:#b5b5ab">Fonte: 75lab.com.br, consultado em 22/10/2026. Marcas atendidas em 2025 e 2026.</p>
  <aside class="roteiro" hidden>A 75 LAB nasceu da soma de dois lados que quase nunca sentam à mesma mesa. O Caique veio do varejo e conhece o PDV por quem opera a loja. O Daniel veio da indústria e pensa a marca pelo resultado do negócio. São mais de quinze anos de trade marketing, mais de quinze mil pontos de venda ativados e noventa e cinco por cento de projetos aprovados, números do nosso site. Entre as marcas que atendemos nos últimos dois anos estão Alltak, Lactalis, Seara, Nestlé Purina, Panco, Savencia e Cacau Show. Vale a pena comentar: vi que a Cacau Show também aparece entre os clientes de vocês.</aside>
 </section>
 
-<section class="slide" data-tela="ponta-a-ponta">
- <span class="tag">O que fazemos</span>
- <h2>Da estratégia à medição, tudo sob o mesmo teto</h2>
- <div class="trilha">
-  <div class="passo"><div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="6"/><path d="M24 4v8M24 36v8M4 24h8M36 24h8"/></svg></div><b>Estratégia</b><span>canal, shopper e plano de PDV</span></div>
-  <div class="passo"><div class="ic"><svg viewBox="0 0 48 48"><path d="M8 40l6-2 24-24-4-4L10 34z"/><path d="M30 10l4 4"/></svg></div><b>Design</b><span>peças e conceito visual</span></div>
-  <div class="passo"><div class="ic"><svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32"/><path d="M8 20h32M20 8v32"/></svg></div><b>Executivo</b><span>projeto técnico cotado</span></div>
-  <div class="passo"><div class="ic"><svg viewBox="0 0 48 48"><path d="M6 38V20l10 6V20l10 6V12h10v26z"/></svg></div><b>Produção</b><span>protótipo e escala</span></div>
-  <div class="passo"><div class="ic"><svg viewBox="0 0 48 48"><path d="M24 42S10 30 10 20a14 14 0 0 1 28 0c0 10-14 22-14 22z"/><circle cx="24" cy="20" r="5"/></svg></div><b>Instalação</b><span>loja a loja</span></div>
-  <div class="passo"><div class="ic"><svg viewBox="0 0 48 48"><path d="M6 40h36M10 40V26M20 40V14M30 40V22M40 40V8"/></svg></div><b>Medição</b><span>QR, painel e leitura</span></div>
- </div>
- <p class="nota">Na produção, uma gráfica de alto nível muda o resultado: <em>é aqui que a conversa com a Mais Type começa.</em></p>
- <aside class="roteiro" hidden>Nosso trabalho vai de ponta a ponta. Começamos pela estratégia do canal e do shopper, desenhamos as peças, fazemos o projeto executivo com medidas e material, produzimos, instalamos loja a loja e medimos o que aconteceu. A produção é o ponto onde a qualidade do impresso aparece de verdade: acabamento, cor, tolerância, prazo. É por isso que queremos entender a Mais Type por dentro: capacidade, tipos de material, o que vocês fazem melhor e onde a 75 LAB pode trazer demanda e organização.</aside>
-</section>
-
-<section class="slide" data-tela="ariuno">
- <span class="tag">Ariuno</span>
- <h2>O Ariuno põe pedido, prazo e aprovação num lugar só</h2>
- <p class="apoio">É a plataforma de gestão que a 75 LAB usa todo dia para tocar os trabalhos.</p>
- <div class="fluxo">
-  <div class="no"><b>Pedido</b><span>vira um card com responsável e prazo</span></div>
-  <svg class="seta" viewBox="0 0 46 20"><path d="M2 10h38M32 3l8 7-8 7"/></svg>
-  <div class="no"><b>Cotação</b><span>fornecedor, item e quantidade registrados</span></div>
-  <svg class="seta" viewBox="0 0 46 20"><path d="M2 10h38M32 3l8 7-8 7"/></svg>
-  <div class="no"><b>Proposta</b><span>montada e conferida pelo time</span></div>
-  <svg class="seta" viewBox="0 0 46 20"><path d="M2 10h38M32 3l8 7-8 7"/></svg>
-  <div class="no"><b>Aprovação</b><span>cliente aprova a arte e a entrega</span></div>
-  <svg class="seta" viewBox="0 0 46 20"><path d="M2 10h38M32 3l8 7-8 7"/></svg>
-  <div class="no"><b>Produção</b><span>acompanhada até a entrega</span></div>
- </div>
- <div class="tres">
-  <div><b>Nada se perde</b>cada combinado fica no card, não no e-mail</div>
-  <div><b>Prazo visível</b>quem atrasa aparece, quem aprova também</div>
-  <div><b>Histórico</b>cotação e preço de cada item ficam guardados</div>
- </div>
- <aside class="roteiro" hidden>O Ariuno é onde a 75 LAB organiza o trabalho. Todo pedido vira um card, com responsável, prazo e subtarefas. A cotação de fornecedor e a proposta ao cliente ficam ligadas ao mesmo trabalho, e a aprovação da arte acontece dentro do fluxo. Para um fornecedor gráfico isso significa pedido claro, aprovação registrada e menos retrabalho por mensagem perdida. Arnaldo, queria entender como vocês recebem hoje os pedidos e as aprovações, e se faz sentido testarmos esse fluxo juntos em um job real.</aside>
-</section>
-
-<section class="slide" data-tela="qr">
- <span class="tag">QR Code</span>
- <div class="qrgrid">
-  <div>
-   <h2>Um QR na peça transforma o impresso em dado</h2>
-   <div class="etapas">
-    <div class="etapa"><i>1</i><p><b>One Shot.</b> <u>O que é:</u> o registro da instalação pelo QR da própria peça: loja, data, hora e local. <u>Benefício:</u> a marca sabe que a peça chegou, sem auditoria presencial.</p></div>
-    <div class="etapa"><i>2</i><p><b>On Timing.</b> <u>O que é:</u> o acompanhamento da peça durante a campanha, com tag de localização e, se houver sensor, a reposição. <u>Benefício:</u> a peça não some nem esvazia sem ninguém saber.</p></div>
-    <div class="etapa"><i>3</i><p><b>Painel.</b> <u>O que é:</u> o lugar onde os dois sinais chegam. <u>Benefício:</u> reforçar onde vende e cortar onde não funciona.</p></div>
+<!-- 3 JORNADA -->
+<section class="slide" data-tela="jornada">
+ <div class="grao"></div>
+ <div class="jorn">
+  <div data-k="grafico">
+   <span class="tag anima">O que fazemos</span>
+   <h2 class="anima d1">Da estratégia à medição, sob o mesmo teto</h2>
+   <div class="trilha anima d2">
+    <button class="passo on2" data-t="1"><div class="ic"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 12v12l8 5"/></svg></div><b>Estratégia</b></button>
+    <button class="passo" data-t="2"><div class="ic"><svg viewBox="0 0 48 48"><path d="M8 38 L8 10 L30 10"/><path d="M14 38 L38 14 M32 14h6v6"/></svg></div><b>Design</b></button>
+    <button class="passo" data-t="3"><div class="ic"><svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32"/><path d="M8 20h32M20 8v32"/></svg></div><b>Executivo</b></button>
+    <button class="passo" data-t="4"><div class="ic"><svg viewBox="0 0 48 48"><path d="M6 36h36M10 36V20l10 6V20l10 6V12h8v24"/></svg></div><b>Produção</b></button>
+    <button class="passo" data-t="5"><div class="ic"><svg viewBox="0 0 48 48"><path d="M24 42C14 30 10 24 10 18a14 14 0 0 1 28 0c0 6-4 12-14 24z"/><circle cx="24" cy="18" r="5"/></svg></div><b>Instalação</b></button>
+    <button class="passo" data-t="6"><div class="ic"><svg viewBox="0 0 48 48"><path d="M8 40V24M20 40V12M32 40V28M44 40H4"/></svg></div><b>Medição</b></button>
+   </div>
+   <div class="painel anima d3">
+    <div data-p="1" class="on2">Canal, shopper e plano de PDV: <em>o que a marca precisa para vender.</em></div>
+    <div data-p="2">Peças e conceito visual, derivados de uma ideia central.</div>
+    <div data-p="3">Projeto técnico com medidas, material e encaixes, pronto para a gráfica produzir.</div>
+    <div data-p="4"><em>Aqui a conversa com a Mais Type começa:</em> acabamento, cor, tolerância e prazo da produção.</div>
+    <div data-p="5">Peça instalada loja a loja, com registro de quem, onde e quando.</div>
+    <div data-p="6">QR, painel e leitura semanal: o que funcionou e o que cortar.</div>
    </div>
   </div>
-  <div class="qrbox"><svg xmlns="http://www.w3.org/2000/svg" width="222" height="222" class="segno"><title>QR Code da apresentação</title><g transform="scale(6)"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#0b0b0b" d="M2 2.5h7m1 0h3m1 0h2m1 0h1m2 0h2m1 0h1m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h3m2 0h1m1 0h1m3 0h5m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h3m1 0h1m1 0h2m4 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m2 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h1m3 0h2m1 0h1m3 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m4 0h2m2 0h1m1 0h1m1 0h2m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h4m3 0h1m3 0h4m-24 1h1m1 0h1m1 0h5m4 0h1m3 0h1m2 0h1m1 0h5m1 0h2m1 0h1m-33 1h1m2 0h3m3 0h3m1 0h2m5 0h2m2 0h4m3 0h2m-29 1h5m2 0h1m1 0h5m1 0h2m3 0h1m2 0h2m1 0h1m1 0h1m-33 1h1m3 0h2m1 0h2m2 0h1m3 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h2m-30 1h4m1 0h3m1 0h3m2 0h1m3 0h4m1 0h1m1 0h2m2 0h1m1 0h1m-30 1h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h2m2 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m-32 1h2m1 0h1m1 0h1m8 0h2m1 0h1m2 0h1m1 0h1m1 0h3m2 0h2m-31 1h1m1 0h3m2 0h1m1 0h6m2 0h7m1 0h1m1 0h2m1 0h1m-31 1h1m2 0h1m1 0h3m3 0h1m1 0h1m2 0h2m1 0h5m1 0h1m1 0h1m2 0h1m-32 1h1m2 0h3m2 0h3m1 0h1m2 0h1m1 0h2m2 0h4m2 0h1m1 0h1m1 0h1m-30 1h1m1 0h4m3 0h2m1 0h1m11 0h1m3 0h3m-23 1h6m1 0h1m2 0h2m2 0h2m1 0h1m3 0h2m-33 1h1m2 0h1m2 0h1m2 0h1m3 0h1m3 0h2m2 0h2m1 0h2m-24 1h2m3 0h1m3 0h1m3 0h1m1 0h1m2 0h2m3 0h3m2 0h3m-33 1h2m1 0h4m1 0h1m2 0h2m3 0h1m2 0h1m1 0h1m3 0h2m1 0h1m3 0h1m-32 1h1m1 0h2m4 0h1m1 0h3m3 0h1m1 0h1m1 0h3m1 0h3m1 0h1m1 0h1m-32 1h1m1 0h1m3 0h3m1 0h2m1 0h2m2 0h1m3 0h2m1 0h5m2 0h1m-24 1h2m5 0h1m2 0h2m2 0h3m3 0h2m2 0h1m-33 1h7m1 0h1m2 0h1m1 0h2m2 0h1m2 0h1m3 0h1m1 0h1m1 0h4m-32 1h1m5 0h1m1 0h1m3 0h6m2 0h3m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m3 0h3m1 0h2m3 0h1m1 0h1m2 0h6m-30 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h2m2 0h1m3 0h1m2 0h2m2 0h1m3 0h1m-33 1h1m5 0h1m1 0h4m1 0h1m3 0h1m1 0h4m1 0h1m1 0h1m-27 1h7m4 0h2m1 0h5m1 0h3m1 0h2m2 0h1m2 0h1"/></g></svg><p>Aponte o celular: este QR abre esta apresentação</p></div>
+  <div class="pilha anima d2">
+   <div class="foto" data-amplia="assets/09-oficina-1792676032012-f12.jpg"><img src="assets/09-oficina-1792676032012-f12.jpg" alt="Stopper promocional com recorte especial"></div>
+  </div>
  </div>
- <aside class="roteiro" hidden>Este QR aqui na tela abre esta própria apresentação no celular, é o jeito mais rápido de mostrar a ideia. Na prática, o QR impresso na peça faz dois trabalhos. O primeiro é o One Shot: registra a instalação, com foto, loja, data, hora e local, e a marca sabe que a peça chegou sem auditoria presencial. O segundo é o On Timing: o acompanhamento durante a campanha, com localização e, quando há sensor, a reposição. Para a Mais Type, é uma camada de valor sobre o impresso que já produzem.</aside>
+ <p class="fonte">Fonte: processo da 75 LAB; fotos do portfólio em maistype.com.br, consultado em 22/10/2026.</p>
+ <aside class="roteiro" hidden>Nosso trabalho vai de ponta a ponta. Começamos pela estratégia do canal e do shopper, desenhamos as peças, fazemos o projeto executivo com medidas e material, produzimos, instalamos loja a loja e medimos o que aconteceu. Clique em cada etapa para ver. A produção é o ponto onde a qualidade do impresso aparece de verdade: acabamento, cor, tolerância, prazo. É por isso que queremos entender a Mais Type por dentro: capacidade, tipos de material, o que vocês fazem melhor e onde a 75 LAB pode trazer demanda e organização.</aside>
 </section>
 
-<section class="slide" data-tela="oferta">
- <span class="tag">Tudo que podemos oferecer</span>
- <h2>Um hub de soluções para o ponto de venda</h2>
- <div class="grade">
-  <div class="card"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="5"/></svg><b>Estratégia de PDV</b><span>canal, shopper, exposição</span></div>
-  <div class="card"><svg viewBox="0 0 48 48"><rect x="8" y="14" width="32" height="26"/><path d="M8 24h32M16 14V8h16v6"/></svg><b>Displays e MPDV</b><span>projeto, protótipo e produção</span></div>
-  <div class="card"><svg viewBox="0 0 48 48"><path d="M8 38h32M12 38V18h24v20M18 18v-6h12v6"/></svg><b>Enxoval de PDV</b><span>kit completo por formato de loja</span></div>
-  <div class="card"><svg viewBox="0 0 48 48"><circle cx="24" cy="16" r="7"/><path d="M10 40c0-9 6-14 14-14s14 5 14 14"/></svg><b>Ativação e degustação</b><span>promotores, eventos e convenções</span></div>
-  <div class="card"><svg viewBox="0 0 48 48"><rect x="12" y="6" width="24" height="36" rx="3"/><path d="M20 12h8M24 36v.1"/></svg><b>Códice</b><span>displays inteligentes e mídia de varejo</span></div>
-  <div class="card"><svg viewBox="0 0 48 48"><path d="M6 40h36M10 40V24M20 40V12M30 40V28M40 40V16"/></svg><b>LAB2WIN e BE2WIN</b><span>planejamento de trade</span></div>
-  <div class="card"><svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="26" rx="2"/><path d="M16 42h16M24 36v6"/></svg><b>Vitrine virtual</b><span>conteúdo rico para e-commerce</span></div>
-  <div class="card"><svg viewBox="0 0 48 48"><path d="M24 6l16 9v18l-16 9-16-9V15z"/><path d="M8 15l16 9 16-9M24 24v18"/></svg><b>Realidade aumentada</b><span>veja o display em 3D no seu espaço</span></div>
+<!-- 4 ARIUNO -->
+<section class="slide s4" data-tela="ariuno">
+ <div class="grao"></div>
+ <div class="esq foto" data-amplia="assets/10-oficina-1792676029899-f10.jpg"><img src="assets/10-oficina-1792676029899-f10.jpg" alt="Peça promocional que percorre o fluxo de pedido e aprovação"></div>
+ <div class="dir" data-k="antes-depois">
+  <span class="tag anima" style="background:#fff">Ariuno</span>
+  <h2 class="anima d1">Pedido, prazo e aprovação num lugar só</h2>
+  <div class="abas anima d2">
+   <button class="on2" data-t="1">Pedido</button><button data-t="2">Consulta</button><button data-t="3">Aprovação</button><button data-t="4">Produção</button>
+  </div>
+  <div class="cx anima d3">
+   <div data-p="1" class="on2"><b>Pedido vira card</b>Cada pedido ganha responsável, prazo e subtarefas. Nada fica solto numa conversa de e-mail.</div>
+   <div data-p="2"><b>Consulta registrada</b>Item, quantidade e prazo da gráfica ficam ligados ao mesmo trabalho, com histórico.</div>
+   <div data-p="3"><b>Aprovação no fluxo</b>O cliente aprova a arte dentro do card. Quem aprova e quando fica registrado.</div>
+   <div data-p="4"><b>Produção acompanhada</b>Do aprovado até a entrega, com prazo visível: quem atrasa aparece.</div>
+  </div>
+  <div class="tres anima d4"><span>Nada se perde</span><span>Prazo visível</span><span>Histórico</span></div>
+  <p class="fonte">Fonte: Ariuno, plataforma de gestão da 75 LAB; foto do portfólio em maistype.com.br, consultado em 22/10/2026.</p>
  </div>
- <p class="fonte">Fonte: 75lab.com.br e materiais institucionais da 75 LAB, 2026.</p>
- <aside class="roteiro" hidden>Aqui está o que a 75 LAB oferece hoje. Estratégia de PDV, displays e materiais com projeto, protótipo e produção, enxoval por formato de loja, ativação e degustação, e plataformas próprias. O Códice reúne displays inteligentes e mídia de varejo. LAB2WIN e BE2WIN apoiam o planejamento de trade. A vitrine virtual leva conteúdo rico ao e-commerce, e a realidade aumentada deixa o cliente ver o display em tamanho real no espaço dele. Não preciso passar por todos: me diga o que chama a atenção da Mais Type e a gente aprofunda.</aside>
+ <aside class="roteiro" hidden>O Ariuno é onde a 75 LAB organiza o trabalho. Todo pedido vira um card, com responsável, prazo e subtarefas. Clique nas abas para ver o caminho. A consulta à gráfica e a proposta ao cliente ficam ligadas ao mesmo trabalho, e a aprovação da arte acontece dentro do fluxo. Para uma gráfica isso significa pedido claro, aprovação registrada e menos retrabalho por mensagem perdida. Arnaldo, queria entender como vocês recebem hoje os pedidos e as aprovações, e se faz sentido testarmos esse fluxo juntos em um job real.</aside>
 </section>
 
+<!-- 5 QR -->
+<section class="slide" data-tela="qr">
+ <div class="grao"></div>
+ <div class="qrg" data-k="pontos">
+  <div class="peca anima d1">
+   <div class="foto" data-amplia="assets/11-oficina-1792676024753-f5.jpg"><img src="assets/11-oficina-1792676024753-f5.jpg" alt="Peça promocional impressa onde o QR e a tag poderiam entrar"></div>
+   <button class="pt on2" data-t="1" style="left:60%;top:16%" aria-label="One Shot">1</button>
+   <button class="pt" data-t="2" style="left:38%;top:52%" aria-label="On Timing">2</button>
+   <button class="pt" data-t="3" style="left:74%;top:70%" aria-label="Painel">3</button>
+  </div>
+  <div class="lado5">
+   <span class="tag anima">QR Code</span>
+   <h2 class="anima d1" style="font-size:64px">O QR transforma o impresso em dado</h2>
+   <div class="cx anima d2">
+    <div data-p="1" class="on2"><b>1 · One Shot</b>O que é: o registro da instalação pelo QR da própria peça (loja, data, hora e local). Benefício: a marca sabe que a peça chegou, sem auditoria presencial.</div>
+    <div data-p="2"><b>2 · On Timing</b>O que é: o acompanhamento da peça durante a campanha, com tag de localização e, se houver sensor, a reposição. Benefício: a peça não some nem esvazia sem ninguém saber.</div>
+    <div data-p="3"><b>3 · Painel</b>O que é: o lugar onde os dois sinais chegam. Benefício: reforçar onde vende e cortar onde não funciona.</div>
+   </div>
+   <div class="fluxo5 anima d3"><i>Peça</i><svg viewBox="0 0 30 12"><path d="M1 6h26M21 1l6 5-6 5"/></svg><i>QR</i><svg viewBox="0 0 30 12"><path d="M1 6h26M21 1l6 5-6 5"/></svg><i>Dado</i><svg viewBox="0 0 30 12"><path d="M1 6h26M21 1l6 5-6 5"/></svg><i>Decisão</i></div>
+   <div class="qrbox anima d4"><svg xmlns="http://www.w3.org/2000/svg" width="222" height="222" class="segno"><title>QR Code da apresentação</title><g transform="scale(6)"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#0b0b0b" d="M2 2.5h7m1 0h3m1 0h2m1 0h1m2 0h2m1 0h1m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h3m2 0h1m1 0h1m3 0h5m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h3m1 0h1m1 0h2m4 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m2 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h1m3 0h2m1 0h1m3 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m4 0h2m2 0h1m1 0h1m1 0h2m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h4m3 0h1m3 0h4m-24 1h1m1 0h1m1 0h5m4 0h1m3 0h1m2 0h1m1 0h5m1 0h2m1 0h1m-33 1h1m2 0h3m3 0h3m1 0h2m5 0h2m2 0h4m3 0h2m-29 1h5m2 0h1m1 0h5m1 0h2m3 0h1m2 0h2m1 0h1m1 0h1m-33 1h1m3 0h2m1 0h2m2 0h1m3 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h2m-30 1h4m1 0h3m1 0h3m2 0h1m3 0h4m1 0h1m1 0h2m2 0h1m1 0h1m-30 1h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h2m2 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m-32 1h2m1 0h1m1 0h1m8 0h2m1 0h1m2 0h1m1 0h1m1 0h3m2 0h2m-31 1h1m1 0h3m2 0h1m1 0h6m2 0h7m1 0h1m1 0h2m1 0h1m-31 1h1m2 0h1m1 0h3m3 0h1m1 0h1m2 0h2m1 0h5m1 0h1m1 0h1m2 0h1m-32 1h1m2 0h3m2 0h3m1 0h1m2 0h1m1 0h2m2 0h4m2 0h1m1 0h1m1 0h1m-30 1h1m1 0h4m3 0h2m1 0h1m11 0h1m3 0h3m-23 1h6m1 0h1m2 0h2m2 0h2m1 0h1m3 0h2m-33 1h1m2 0h1m2 0h1m2 0h1m3 0h1m3 0h2m2 0h2m1 0h2m-24 1h2m3 0h1m3 0h1m3 0h1m1 0h1m2 0h2m3 0h3m2 0h3m-33 1h2m1 0h4m1 0h1m2 0h2m3 0h1m2 0h1m1 0h1m3 0h2m1 0h1m3 0h1m-32 1h1m1 0h2m4 0h1m1 0h3m3 0h1m1 0h1m1 0h3m1 0h3m1 0h1m1 0h1m-32 1h1m1 0h1m3 0h3m1 0h2m1 0h2m2 0h1m3 0h2m1 0h5m2 0h1m-24 1h2m5 0h1m2 0h2m2 0h3m3 0h2m2 0h1m-33 1h7m1 0h1m2 0h1m1 0h2m2 0h1m2 0h1m3 0h1m1 0h1m1 0h4m-32 1h1m5 0h1m1 0h1m3 0h6m2 0h3m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m3 0h3m1 0h2m3 0h1m1 0h1m2 0h6m-30 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m-32 1h1m1 0h3m1 0h1m4 0h1m1 0h2m2 0h1m3 0h1m2 0h2m2 0h1m3 0h1m-33 1h1m5 0h1m1 0h4m1 0h1m3 0h1m1 0h4m1 0h1m1 0h1m-27 1h7m4 0h2m1 0h5m1 0h3m1 0h2m2 0h1m2 0h1"/></g></svg><p>Aponte o celular: este QR abre esta apresentação.</p></div>
+  </div>
+ </div>
+ <p class="fonte">Fonte: Plano de Rastreamento 75 LAB; foto do portfólio em maistype.com.br, consultado em 22/10/2026.</p>
+ <aside class="roteiro" hidden>Este QR aqui na tela abre esta própria apresentação no celular, é o jeito mais rápido de mostrar a ideia. Clique nos pontos da peça para ver cada camada. Na prática, o QR impresso na peça faz dois trabalhos. O primeiro é o One Shot: registra a instalação, com foto, loja, data, hora e local, e a marca sabe que a peça chegou sem auditoria presencial. O segundo é o On Timing: o acompanhamento durante a campanha, com localização e, quando há sensor, a reposição. Para a Mais Type, é uma camada de valor sobre o impresso que já produzem.</aside>
+</section>
+
+<!-- 6 OFERTA -->
+<section class="slide s6" data-tela="oferta">
+ <div class="grao"></div>
+ <div class="of" data-k="grafico" id="of">
+  <div>
+   <span class="tag anima" style="background:#fff">Tudo que podemos oferecer</span>
+   <h2 class="anima d1">Um hub de soluções para o ponto de venda</h2>
+   <div class="chips anima d2"><button class="on2" data-t="todos">Tudo</button><button data-t="prod">Produzir</button><button data-t="med">Medir</button><button data-t="ven">Vender</button></div>
+   <div class="lista anima d3">
+    <div class="it p v"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 12v12l8 5"/></svg><div><b>Estratégia de PDV</b><span>canal, shopper, exposição</span></div></div>
+    <div class="it p"><svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32"/><path d="M8 20h32M20 8v32"/></svg><div><b>Displays e MPDV</b><span>projeto, protótipo e produção</span></div></div>
+    <div class="it p"><svg viewBox="0 0 48 48"><path d="M6 36h36M10 36V20l10 6V20l10 6V12h8v24"/></svg><div><b>Enxoval de PDV</b><span>kit por formato de loja</span></div></div>
+    <div class="it v"><svg viewBox="0 0 48 48"><circle cx="18" cy="16" r="6"/><path d="M6 40c0-8 5-12 12-12s12 4 12 12M34 20l8 8"/></svg><div><b>Ativação e degustação</b><span>promotores, eventos, convenções</span></div></div>
+    <div class="it m"><svg viewBox="0 0 48 48"><path d="M8 40V24M20 40V12M32 40V28M44 40H4"/></svg><div><b>Códice</b><span>displays inteligentes e mídia de varejo</span></div></div>
+    <div class="it m v"><svg viewBox="0 0 48 48"><path d="M8 40L20 24l8 8 12-20"/></svg><div><b>LAB2WIN e BE2WIN</b><span>planejamento de trade</span></div></div>
+    <div class="it v"><svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="24" rx="2"/><path d="M16 42h16M24 34v8"/></svg><div><b>Vitrine virtual</b><span>conteúdo rico para e-commerce</span></div></div>
+    <div class="it p m"><svg viewBox="0 0 48 48"><path d="M24 6l16 9v18L24 42 8 33V15z"/><path d="M8 15l16 9 16-9M24 24v18"/></svg><div><b>Realidade aumentada</b><span>o display em 3D no seu espaço</span></div></div>
+   </div>
+  </div>
+  <div class="foto anima d2" data-amplia="assets/12-oficina-1792676030943-f11.jpg"><img src="assets/12-oficina-1792676030943-f11.jpg" alt="Catálogo de produtos impresso pela Mais Type"></div>
+ </div>
+ <p class="fonte">Fonte: 75lab.com.br e materiais institucionais da 75 LAB, 2026; foto do portfólio em maistype.com.br, consultado em 22/10/2026.</p>
+ <aside class="roteiro" hidden>Aqui está o que a 75 LAB oferece hoje. Estratégia de PDV, displays e materiais com projeto, protótipo e produção, enxoval por formato de loja, ativação e degustação, e plataformas próprias. O Códice reúne displays inteligentes e mídia de varejo. LAB2WIN e BE2WIN apoiam o planejamento de trade. A vitrine virtual leva conteúdo rico ao e-commerce, e a realidade aumentada deixa o cliente ver o display em tamanho real no espaço dele. Use os filtros para ver o que é produzir, medir ou vender. Me diga o que chama a atenção da Mais Type e a gente aprofunda.</aside>
+</section>
+
+<!-- 7 CAMINHOS -->
 <section class="slide" data-tela="caminhos">
- <span class="tag">Onde as duas casas se encontram</span>
- <h2>Três caminhos para crescer juntos</h2>
- <div class="cam">
-  <div><div class="n">1</div><b>Produzir juntos</b><p>Impressos e materiais de PDV dos projetos da 75 LAB, com o padrão de acabamento da Mais Type.</p><small>A explorar</small></div>
-  <div><div class="n">2</div><b>Medir juntos</b><p>QR e rastreamento nos impressos da Mais Type: o cliente vê o que o papel gerou no ponto de venda.</p><small>A explorar</small></div>
-  <div><div class="n">3</div><b>Vender juntos</b><p>Marcas que a Mais Type atende e que a 75 LAB leva do papel até a prateleira.</p><small>A explorar</small></div>
+ <div class="grao"></div>
+ <div class="cm" data-k="grafico" id="cm">
+  <div class="foto" data-amplia="assets/13-oficina-1792676028808-f9.jpg"><img class="on2" data-p="1" src="assets/13-oficina-1792676028808-f9.jpg" alt="Catálogo de decoração com acabamento premium"><img data-p="2" src="assets/14-oficina-1792676026752-f7.jpg" alt="Caderno impresso pela Mais Type"><img data-p="3" src="assets/15-oficina-1792676022662-f3.jpg" alt="Livro infantil impresso pela Mais Type"></div>
+  <div>
+   <span class="tag anima">Onde as duas casas se encontram</span>
+   <h2 class="anima d1" style="font-size:66px;margin-bottom:26px">Três caminhos para crescer juntos</h2>
+   <div class="seg anima d2">
+    <button class="on2" data-t="1"><span class="n">1</span><span><b>Produzir juntos</b><p>Impressos e materiais de PDV dos projetos da 75 LAB, com o padrão de acabamento da Mais Type.</p><small>A explorar</small></span></button>
+    <button data-t="2"><span class="n">2</span><span><b>Medir juntos</b><p>QR e rastreamento nos impressos da Mais Type: o cliente vê o que o papel gerou no ponto de venda.</p><small>A explorar</small></span></button>
+    <button data-t="3"><span class="n">3</span><span><b>Vender juntos</b><p>Marcas que a Mais Type atende e que a 75 LAB leva do papel até a prateleira.</p><small>A explorar</small></span></button>
+   </div>
+  </div>
  </div>
  <p class="fonte">Fonte: maistype.com.br, consultado em 22/10/2026 (portfólio: catálogos, caixas e kits, sacolas e materiais de ponto de venda).</p>
- <aside class="roteiro" hidden>Pensando no que a Mais Type faz, catálogos, caixas e kits, sacolas e material de ponto de venda, enxergo três caminhos. Primeiro, produzir juntos: parte dos projetos da 75 LAB passa por uma gráfica de alto nível. Segundo, medir juntos: o QR e o rastreamento viram um serviço a mais sobre o que vocês já imprimem. Terceiro, vender juntos: marcas que vocês atendem e que podem ganhar estratégia e medição no ponto de venda. São hipóteses para conversar, e eu gostaria de ouvir qual delas faz mais sentido para vocês.</aside>
+ <aside class="roteiro" hidden>Pensando no que a Mais Type faz, catálogos, caixas e kits, sacolas e material de ponto de venda, enxergo três caminhos. Clique em cada um para ver. Primeiro, produzir juntos: parte dos projetos da 75 LAB passa por uma gráfica de alto nível. Segundo, medir juntos: o QR e o rastreamento viram um serviço a mais sobre o que vocês já imprimem. Terceiro, vender juntos: marcas que vocês atendem e que podem ganhar estratégia e medição no ponto de venda. São hipóteses para conversar, e eu gostaria de ouvir qual delas faz mais sentido para vocês.</aside>
 </section>
 
+<!-- 8 FIM -->
 <section class="slide fim" data-tela="fim">
+ <div class="grao"></div>
  <div class="lado">
   <div>
-   <span class="tag">Próximo passo</span>
-   <h2>Qual caminho começamos <em>na próxima semana?</em></h2>
-   <a class="btn" href="https://wa.me/5511986765634?text=Ol%C3%A1!%20Participei%20da%20reuni%C3%A3o%20Mais%20Type%20%C3%97%2075%20LAB%20e%20quero%20conversar." target="_blank" rel="noopener">Fale conosco no WhatsApp</a>
+   <span class="tag anima">Próximo passo</span>
+   <h2 class="anima d1">Qual caminho começamos <em>na próxima semana?</em></h2>
+   <p class="apoio anima d2" style="color:#e8e8e0">Produzir, medir ou vender juntos. Pode começar por um impresso da própria 75 LAB, como o folder, ou por um projeto de cliente.</p>
+   <a class="btn anima d3" href="https://wa.me/5511986765634?text=Ol%C3%A1!%20Vi%20a%20apresenta%C3%A7%C3%A3o%20da%2075%20LAB%20para%20a%20Mais%20Type%20e%20quero%20conversar." target="_blank" rel="noopener">Fale conosco no WhatsApp</a>
+   <div class="fotos anima d4"><div class="foto" data-amplia="assets/16-oficina-1792676025778-f6.jpg"><img src="assets/16-oficina-1792676025778-f6.jpg" alt="Peça de ponto de venda com recorte especial impressa pela Mais Type"></div></div>
   </div>
-  <div class="dados">
-   <b>75 LAB Estratégia, Design e Produção Ltda</b><br>CNPJ 55.470.982/0001-77<br>
-   CENU · Centro Empresarial das Nações Unidas, Torre Norte<br>Av. das Nações Unidas, 12.901, Brooklin, São Paulo, SP, CEP 04578-910<br><br>
-   <b>Telefone</b> (11) 8864-8434 · <b>WhatsApp</b> (11) 98676-5634<br>
-   <b>E-mail</b> contato@75lab.com.br · <b>Site</b> 75lab.com.br<br>
-   <b>Instagram</b> @setecincolab<br><br>
-   <b>Apresentador</b> Caique Becker, cofundador e Head de Trade<br>caique.becker@75lab.com.br
+  <div class="dados anima d2">
+   <b>75 LAB Estratégia, Design e Produção Ltda</b><br>CNPJ 55.470.982/0001-77<br>CENU · Centro Empresarial das Nações Unidas, Torre Norte<br>Av. das Nações Unidas, 12.901, Brooklin, São Paulo, SP, CEP 04578-910<br>(11) 8864-8434 · WhatsApp (11) 98676-5634<br>contato@75lab.com.br · 75lab.com.br · @setecincolab<br><br><b>Apresentador</b><br>Caique Becker, cofundador e Head de Trade<br>caique.becker@75lab.com.br
   </div>
  </div>
+ <p class="fonte">Fonte: dados institucionais da 75 LAB, 2026; fotos do portfólio em maistype.com.br, consultado em 22/10/2026.</p>
  <aside class="roteiro" hidden>Para fechar: o que eu levo daqui é a vontade de testar com um job real. Pode ser um impresso da própria 75 LAB, como o folder que estamos finalizando, ou um projeto de cliente. Minha pergunta de decisão é: qual dos três caminhos, produzir, medir ou vender juntos, vocês querem começar na próxima semana? O meu contato e o da 75 LAB estão na tela, e o botão de WhatsApp leva direto para a gente. Obrigado, Arnaldo, e obrigado a todos.</aside>
 </section>
 
 </div>
-<div class="barra" id="barra"></div>
-<div class="cont" id="cont">01 / 08</div>
-<div class="nav"><button id="ant" aria-label="Tela anterior">‹</button><button class="ro" id="rot" aria-label="Mostrar roteiro de fala">Roteiro</button><button id="prox" aria-label="Próxima tela">›</button></div>
+<div class="barra" id="barra"></div><div class="cont" id="cont">01 / 08</div>
+<div class="nav"><button id="ant" aria-label="Tela anterior">‹</button><button class="ro" id="rot" aria-label="Roteiro de fala">Roteiro</button><button id="prox" aria-label="Próxima tela">›</button></div>
 <div class="cur" id="cur"></div>
+<div class="lb" id="lb" role="dialog" aria-label="Imagem ampliada"><button aria-label="Fechar">×</button><img alt="Imagem ampliada" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>
 <script>
 (function(){
  var S=[].slice.call(document.querySelectorAll('.slide')),i=0,P=document.getElementById('palco');
  var mobile=function(){return Math.min(innerWidth,screen.width)<900};
  function esc(){ if(mobile()){P.style.transform='';return} var k=Math.min(innerWidth/1600,innerHeight/900);P.style.transform='translate(-50%,-50%) scale('+k+')'}
- function conta(el){var alvo=+el.dataset.conta,suf=el.dataset.suf||'',t0=null;function f(t){if(!t0)t0=t;var p=Math.min((t-t0)/1500,1);el.textContent=Math.round(alvo*(1-Math.pow(1-p,3))).toLocaleString('pt-BR')+suf;if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+ function conta(el){var alvo=+el.dataset.conta,t0=null;function f(t){if(!t0)t0=t;var p=Math.min((t-t0)/1500,1);el.textContent=Math.round(alvo*(1-Math.pow(1-p,3))).toLocaleString('pt-BR');if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
  function vai(n){ if(n<0||n>=S.length)return; S[i].classList.remove('on'); S[i].classList.add('saiu'); var antigo=S[i]; setTimeout(function(){antigo.classList.remove('saiu')},600);
   i=n; S[i].classList.remove('saiu'); S[i].classList.add('on');
   [].forEach.call(S[i].querySelectorAll('[data-conta]'),conta);
   if(document.body.classList.contains('mostra')){var v=document.querySelector('.roteiro.vivo'),a2=S[i].querySelector('.roteiro');if(v&&a2)v.textContent=a2.textContent}
   document.getElementById('barra').style.width=((i+1)/S.length*100)+'%';
   document.getElementById('cont').textContent=('0'+(i+1)).slice(-2)+' / '+('0'+S.length).slice(-2);
-  document.querySelector('.topo').style.filter=S[i].classList.contains('fim')?'invert(1)':'none'; }
+  document.getElementById('topo').classList.toggle('esc',S[i].classList.contains('fim')); }
  document.getElementById('prox').onclick=function(){vai(i+1)};
  document.getElementById('ant').onclick=function(){vai(i-1)};
  document.getElementById('rot').onclick=function(){document.body.classList.toggle('mostra');var a=S[i].querySelector('.roteiro');var el=document.querySelector('.roteiro.vivo');if(el)el.remove();if(document.body.classList.contains('mostra')&&a){var c=document.createElement('div');c.className='roteiro vivo';c.textContent=a.textContent;document.body.appendChild(c)}};
- document.addEventListener('keydown',function(e){var k=e.key; if(k==='ArrowRight'||k===' '||k==='PageDown'){e.preventDefault();vai(i+1)} else if(k==='ArrowLeft'||k==='PageUp'){vai(i-1)} else if(k==='r'||k==='R'){document.getElementById('rot').click()}});
+ document.addEventListener('keydown',function(e){var k=e.key; if(k==='Escape'){fecha();return} if(k==='ArrowRight'||k===' '||k==='PageDown'){e.preventDefault();vai(i+1)} else if(k==='ArrowLeft'||k==='PageUp'){vai(i-1)} else if(k==='r'||k==='R'){document.getElementById('rot').click()}});
  var x0=null;document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
  document.addEventListener('touchend',function(e){if(mobile()||x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>60)vai(i+(d<0?1:-1));x0=null});
  document.addEventListener('wheel',function(e){if(mobile())return;if(Math.abs(e.deltaY)>40){clearTimeout(window._w);window._w=setTimeout(function(){vai(i+(e.deltaY>0?1:-1))},60)}},{passive:true});
- var cur=document.getElementById('cur');document.addEventListener('mousemove',function(e){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';cur.classList.toggle('g',!!e.target.closest('a,button,.card,.no'))});
+ /* abas, pontos e filtros */
+ [].forEach.call(document.querySelectorAll('[data-k]'),function(c){
+  [].forEach.call(c.querySelectorAll('[data-t]'),function(b){
+   b.addEventListener('click',function(e){e.stopPropagation();var v=b.dataset.t;
+    [].forEach.call(c.querySelectorAll('[data-t]'),function(x){x.classList.toggle('on2',x.dataset.t===v)});
+    [].forEach.call(c.querySelectorAll('[data-p]'),function(x){x.classList.toggle('on2',x.dataset.p===v)});
+    if(c.id==='of'){c.className='of'+(v==='prod'?' f-prod':v==='med'?' f-med':v==='ven'?' f-ven':'')}
+   });
+  });
+ });
+ /* lightbox */
+ var lb=document.getElementById('lb'),lbi=lb.querySelector('img');
+ function fecha(){lb.classList.remove('on')}
+ [].forEach.call(document.querySelectorAll('[data-amplia]'),function(f){f.addEventListener('click',function(e){if(e.target.closest('.pt'))return;e.stopPropagation();var im=f.querySelector('img.on2')||f.querySelector('img');lbi.src=im?im.src:f.dataset.amplia;lb.classList.add('on')})});
+ lb.addEventListener('click',fecha);
+ /* cursor */
+ var cur=document.getElementById('cur');document.addEventListener('mousemove',function(e){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  var t=e.target;cur.classList.toggle('z',!!t.closest('[data-amplia]')&&!t.closest('.pt'));cur.classList.toggle('p',!!t.closest('.pt'));cur.classList.toggle('g',!!t.closest('a,button,.abas,.chips'))});
  addEventListener('resize',esc);addEventListener('orientationchange',esc);esc();
  [].forEach.call(S[0].querySelectorAll('[data-conta]'),conta);
- if(mobile()){[].forEach.call(document.querySelectorAll('[data-conta]'),function(el){el.textContent=(+el.dataset.conta).toLocaleString('pt-BR')+(el.dataset.suf||'')})}
+ if(mobile()){[].forEach.call(document.querySelectorAll('[data-conta]'),function(el){el.textContent=(+el.dataset.conta).toLocaleString('pt-BR')})}
 })();
 </script>
 <div id="painel-roteiro" data-modo-apresentador hidden style="position:fixed;left:16px;right:16px;bottom:16px;max-height:38vh;overflow:auto;z-index:99999;background:rgba(17,17,17,.94);color:#f4f4f0;font:16px/1.5 'Space Grotesk',Arial,sans-serif;padding:16px 20px;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.35)"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:6px"><b id="painel-roteiro-t" style="font:700 13px 'Space Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#C0EE4E">Roteiro</b><button type="button" onclick="document.getElementById('painel-roteiro').hidden=true" aria-label="Fechar roteiro" style="min-width:44px;min-height:44px;background:none;border:1px solid #555;color:#fff;border-radius:8px;cursor:pointer">×</button></div><div id="painel-roteiro-x"></div></div>
